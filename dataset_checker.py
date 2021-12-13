@@ -11,14 +11,10 @@ flags.DEFINE_integer('batch_size', 100, 'batch size')
 flags.DEFINE_boolean('binary_img', True, 'whether use binary file or not')
 flags.DEFINE_boolean('is_ccrop', True, 'whether use central cropping or not')
 flags.DEFINE_boolean('visualization', True, 'whether visualize dataset or not')
-
+flags.DEFINE_string('tf_record', './data/ms1m_bin.tfrecord', 'tf record')
 
 def main(_):
-    if FLAGS.binary_img:
-        tfrecord_name = './data/ms1m_bin.tfrecord'
-    else:
-        tfrecord_name = './data/ms1m.tfrecord'
-
+    tfrecord_name = FLAGS.tf_record
     train_dataset = load_tfrecord_dataset(
         tfrecord_name, FLAGS.batch_size, binary_img=FLAGS.binary_img,
         is_ccrop=FLAGS.is_ccrop)
