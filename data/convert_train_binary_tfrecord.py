@@ -5,12 +5,14 @@ import tqdm
 import glob
 import random
 import tensorflow as tf
+import csv 
 
 
 flags.DEFINE_string('dataset_path', '../Dataset/ms1m_align_112/imgs',
                     'path to dataset')
 flags.DEFINE_string('output_path', './data/ms1m_bin.tfrecord',
                     'path to ouput tfrecord')
+flags.DEFINE_string('anontation_file', './anontations/faces.csv', 'anontation file')
 
 
 def _bytes_feature(value):
@@ -50,12 +52,14 @@ def main(_):
     samples = []
     logging.info('Reading data list...')
     for id_name in tqdm.tqdm(os.listdir(dataset_path)):
-        img_paths = glob.glob(os.path.join(dataset_path, id_name, '*.jpg'))
-        for img_path in img_paths:
-            filename = os.path.join(id_name, os.path.basename(img_path))
-            samples.append((img_path, id_name, filename))
-    random.shuffle(samples)
+        image_file = os.path.join(dataset_path, id_name, '*.png')
 
+        for img_path in os.listdir(os.path.join(dataset_path, id_name)):
+            filename = os.path.join(dataset_path, id_name, os.path.basename(img_path))
+            samples.append((filename, id_name, filename))
+            print((filename, id_name, filename))
+
+    random.shuffle(samples)
     logging.info('Writing tfrecord file...')
     with tf.io.TFRecordWriter(FLAGS.output_path) as writer:
         for img_path, id_name, filename in tqdm.tqdm(samples):
