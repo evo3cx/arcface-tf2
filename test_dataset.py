@@ -22,7 +22,7 @@ def main(_argv):
     logger = tf.get_logger()
     logger.disabled = True
     logger.setLevel(logging.FATAL)
-    set_memory_growth()
+    # set_memory_growth()
 
     cfg = load_yaml(FLAGS.cfg_path)
 
@@ -30,7 +30,7 @@ def main(_argv):
     strategy = tf.distribute.MirroredStrategy(gpus)
     
     with strategy.scope():
-        
+
         model = ArcFaceModel(size=cfg['input_size'],
                             backbone_type=cfg['backbone_type'],
                             training=False)
