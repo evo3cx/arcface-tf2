@@ -19,3 +19,4 @@ save_steps: 1000
 
 # test
 test_dataset: 'test_dataset'
+pre_trained_model: './models/arc_res50_ccrop'
