@@ -109,7 +109,7 @@ def main(_):
             steps += 1
             epochs = steps // steps_per_epoch + 1
     else:
-        model.compile(optimizer=optimizer, loss=loss_fn)
+        model.compile(optimizer=optimizer, loss=loss_fn, metrics=['accuracy'])
 
         mc_callback = ModelCheckpoint(
             'checkpoints/' + cfg['sub_name'] + '/e_{epoch}_b_{batch}.ckpt',
