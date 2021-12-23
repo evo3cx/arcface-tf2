@@ -132,7 +132,7 @@ def main(_):
                   steps_per_epoch=steps_per_epoch,
                   callbacks=callbacks,
                   initial_epoch=epochs - 1)
-            model.save("./checkpoints/model/"+cfg["sub_name"], overwrite=True)
+            model.save_weights("./checkpoints/model/"+cfg["sub_name"]+".h5")
     print("[*] training done!")
 
 

@@ -16,8 +16,9 @@ flags.DEFINE_string('img_path', '', 'path to input image')
 
 
 def main(_argv):
+    gpus = tf.config.list_logical_devices('GPU')
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-    os.environ['CUDA_VISIBLE_DEVICES'] = FLAGS.gpu
+    os.environ['CUDA_VISIBLE_DEVICES'] = len(gpus)
 
     logger = tf.get_logger()
     logger.disabled = True
